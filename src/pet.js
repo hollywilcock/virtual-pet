@@ -24,12 +24,11 @@ function Pet(name) {
     this.hunger = MIN_HUNGER;
     this.fitness = MAX_FITNESS ;
     this.isAlive = true;
-    this.Baby = [];
   };
 
   Pet.prototype = {
 
-    isAlive() {
+    get isAlive() {
         if ((this.fitness > MAX_FITNESS && this.hunger < MAX_HUNGER && this.age < MAX_AGE)){
             return ('false')
         } else if (!this.isAlive)
@@ -70,9 +69,10 @@ function Pet(name) {
         };
         return "I feel great!";
 
-    },
+    }
    
-    };
+    }
+
  
 
   
