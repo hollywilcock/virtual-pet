@@ -1,4 +1,4 @@
-const Pet = require("../src/pet")
+const {Pet, MIN_FITNESS, MAX_HUNGER, MAX_AGE} = require("../src/pet")
 
 describe('constructor', () => {
     it('returns an object', () => {
@@ -28,7 +28,7 @@ describe('constructor', () => {
     });
   });
 
-  describe('Hunger' , () => {
+describe('Hunger' , () => {
     
       it('Has initial hunger of 0 ', () => {
         const pet = new Pet('Fido')
@@ -58,7 +58,7 @@ describe('constructor', () => {
       });
   });
 
-  describe('Fitness' , () => {
+describe('Fitness' , () => {
       it('Has initial fitness of 10', () => {
         const pet = new Pet('Fido')
         expect (pet.fitness).toBe(10);
@@ -84,3 +84,74 @@ describe('constructor', () => {
       });
 
   });
+
+describe ('Check-Up ', () => {
+      it('returns warning message when pets fitness reached 3 or less', () => {
+        const pet = new Pet('Fido');
+        pet.fitness = 3;
+        pet.hunger = 4;
+
+        expect (pet.checkUp()).toBe("I need a walk");
+      });
+      it('returns warning message when hunger is 5 or more', () => {
+          const pet = new Pet('Fido');
+          pet.hunger= 6;
+          pet.fitness = 5
+
+          expect (pet.checkUp()).toBe("I am hungry")
+      });
+      it('returns warning message wen hunger is 5 + AND fitness is 3 - ', () => {
+          const pet = new Pet('Fido');
+          pet.hunger = 7;
+          pet.fitness = 2;
+
+          expect(pet.checkUp()).toBe("I am hungry AND I need a walk")
+      });
+      it('returns a message when hunger is less than 5 and fitness is above 3', () => {
+          const pet = new Pet('Fido');
+          pet.hunger = 4;
+          pet.fitness = 7;
+
+          expect(pet.checkUp()).toBe("I feel great!")
+      });
+      it('If the pets fitness is 0 or less, it should return false.', () => {
+        const pet = new Pet('Fido');
+    
+        pet.isAlive();
+    
+        expect(pet.isAlive()).toBe('false');
+      });
+    
+      it('If the pets hunger is 10 or more, it should return false.', () => {
+        const pet = new Pet('Fido');
+    
+        pet.isAlive();
+    
+        expect(pet.isAlive()).toBe('false');
+      });
+    
+      it('If the pets age is 30 or more, it should return false.', () => {
+        const pet = new Pet('Fido');
+    
+        pet.isAlive();
+    
+        expect(pet.isAlive).toBe('false');
+      });
+    
+      it('Otherwise it should return true.', () => {
+        const pet = new Pet('Fido');
+    
+        pet.isAlive();
+    
+        expect(pet.isAlive()).toBe('true');
+      });
+    
+      it('throws an error if the pet is not alive', () => {
+        const pet = new Pet('Fido');
+    
+        pet.isAlive();
+    
+        expect(pet.isAlive()).toBe('Your Pet has passed away. RIP.');
+      });
+});
+
