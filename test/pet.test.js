@@ -153,16 +153,13 @@ describe(' dead pet ' , () => {
       });
     });
     
-     describe("Adopt Child", () => {
-        it("pet has an initial number of children = 0", () => {
-            const pet = new Pet("Fido");
-            expect(pet.children).toEqual([]);
+    describe("adoptChild()", () => {
+
+        it("checks that parent has a 'children' property which is an array with the first element being child", () => {
+            const parent = new Pet("Belle");
+            const child = new Pet("Buddy");
+            parent.adoptChild(child);
+            expect(parent.children[0]).toEqual(child);
         });
-        it("adds a child to the array of children", () => {
-            const pet = new Pet("Buddy");
     
-            pet.adoptChild(child);
-    
-            expect(pet.children[0].name).toEqual("Buddy");
-        });
     });
