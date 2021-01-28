@@ -23,41 +23,53 @@ function Pet(name) {
     this.age = START_AGE;
     this.hunger = MIN_HUNGER;
     this.fitness = MAX_FITNESS ;
-    this.isAlive = true;
+    this.children = [] ;
   };
 
+  
   Pet.prototype = {
-
     get isAlive() {
-        if ((this.fitness > MAX_FITNESS && this.hunger < MAX_HUNGER && this.age < MAX_AGE)){
-            return ('false')
-        } else if (!this.isAlive)
-        throw new Error ('Your Pet has passed away. RIP.')
+        return this.age < MAX_AGE && this.hunger < MAX_HUNGER && this.fitness > MIN_FITNESS;
     },
-
+    
     growUp() {
+        if (!this.isAlive) {
+            throw new Error('Your pet is no longer alive :(');
+          }
         this.age += GROW_BOOST ;
   },
      hungrier() {
+        
          this.hunger += HUNGRY_INCREASE ;
   },
      lessFit() {
+        if (!this.isAlive) {
+            throw Error('Your Pet is no longer alive :(');
+          } 
          this.fitness -= FITNESS_DECREASE;
-     },
+    },
+  
      walk() {
+        if (!this.isAlive) {
+            throw new Error('Your Pet is no longer alive :(');
+          }
         this.fitness += WALK_BOOST;
         if (this.fitness > MAX_FITNESS) this.fitness = MAX_FITNESS;
      },
      feed() {
+        if (!this.isAlive) {
+            throw new Error('Your pet is no longer alive :(');
+          }
          this.hunger -= FEED_DECREASE ;
          if (this.hunger < MIN_HUNGER) this.hunger = MIN_HUNGER;
      },
-
-     
      checkUp() {
        const WALK_WARNING = (this.fitness <= 3);
        const FEED_WARNING = (this.hunger >= 5);
-
+       if (!this.isAlive) {
+        throw new Error('Your pet is no longer alive :(');
+      }
+       else {
         if (!FEED_WARNING && WALK_WARNING) {
             return "I need a walk";
         };
@@ -68,10 +80,15 @@ function Pet(name) {
             return "I am hungry AND I need a walk";
         };
         return "I feel great!";
+         }
+        }
+    
+    };
 
+    Pet.prototype.adoptChild = function(child) {
+        this.children.push(child);
     }
-   
-    }
+    
 
  
 
